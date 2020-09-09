@@ -41,10 +41,10 @@ module.exports = {
           // 使用loader的默认配置
           // 'postcss-loader',
           // 修改loader的配置
-          {
-            loader: 'postcss-loader',
+          { 
+            loader: 'postcss-loader', 
             options: {
-              ident: 'postcss',
+              ident: 'postcss', // 固定写法
               plugins: () => [
                 // postcss的插件
                 require('postcss-preset-env')()
