@@ -1,5 +1,5 @@
-const { resolve } = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const {resolve} = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   entry: ['./src/js/index.js', './src/index.html'],
@@ -55,8 +55,8 @@ module.exports = {
     hot: true
   },
   devtool: 'eval-source-map'
-};
-
+}
+// todo
 /*
   source-map: 一种 提供源代码到构建后代码映射 技术 （如果构建后代码出错了，通过映射可以追踪源代码错误）
 
@@ -76,10 +76,10 @@ module.exports = {
     nosources-source-map：外部
       错误代码准确信息, 但是没有任何源代码信息
     cheap-source-map：外部
-      错误代码准确信息 和 源代码的错误位置 
+      错误代码准确信息 和 源代码的错误位置
       只能精确的行
     cheap-module-source-map：外部
-      错误代码准确信息 和 源代码的错误位置 
+      错误代码准确信息 和 源代码的错误位置
       module会将loader的source map加入
 
     内联 和 外部的区别：1. 外部生成了文件，内联没有 2. 内联构建速度更快
@@ -88,7 +88,7 @@ module.exports = {
       速度快(eval>inline>cheap>...)
         eval-cheap-souce-map
         eval-source-map
-      调试更友好  
+      调试更友好
         souce-map
         cheap-module-souce-map
         cheap-souce-map

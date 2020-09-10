@@ -108,8 +108,8 @@ module.exports = {
         removeComments: true
       }
     }),
-    // todo
     new WorkboxWebpackPlugin.GenerateSW({
+      // todo
       /*
         1. 帮助serviceworker快速启动
         2. 删除旧的 serviceworker
