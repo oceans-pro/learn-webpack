@@ -1,14 +1,14 @@
-import { mul } from './test';
-import '../css/index.css';
+import {mul} from './test'
+import '../css/index.css'
 
 function sum(...args) {
-  return args.reduce((p, c) => p + c, 0);
+  return args.reduce((p, c) => p + c, 0)
 }
 
 // eslint-disable-next-line
-console.log(mul(2, 3));
+console.log(mul(2, 3))
 // eslint-disable-next-line
-console.log(sum(1, 2, 3, 4));
+console.log(sum(1, 2, 3, 4))
 
 /*
   1. eslint不认识 window、navigator全局变量
@@ -29,10 +29,10 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker
       .register('/service-worker.js')
       .then(() => {
-        console.log('sw注册成功了~');
+        console.log('sw注册成功了~')
       })
       .catch(() => {
-        console.log('sw注册失败了~');
-      });
-  });
+        console.log('sw注册失败了~')
+      })
+  })
 }
