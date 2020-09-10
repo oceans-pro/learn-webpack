@@ -1,7 +1,7 @@
-const { resolve } = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { resolve } = require('path')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 /*
   缓存：
@@ -19,59 +19,48 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
       --> 让代码上线运行缓存更好使用
 */
 
-// 定义nodejs环境变量：决定使用browserslist的哪个环境
-process.env.NODE_ENV = 'production';
+process.env.NODE_ENV = 'production'
 
-// 复用loader
 const commonCssLoader = [
   MiniCssExtractPlugin.loader,
   'css-loader',
   {
-    // 还需要在package.json中定义browserslist
     loader: 'postcss-loader',
     options: {
       ident: 'postcss',
-      plugins: () => [require('postcss-preset-env')()]
-    }
-  }
-];
+      plugins: () => [require('postcss-preset-env')()],
+    },
+  },
+]
 
 module.exports = {
   entry: './src/js/index.js',
   output: {
+    // 下面加入hash值
     filename: 'js/built.[contenthash:10].js',
-    path: resolve(__dirname, 'build')
+    path: resolve(__dirname, 'build'),
   },
   module: {
     rules: [
       {
-        // 在package.json中eslintConfig --> airbnb
         test: /\.js$/,
         exclude: /node_modules/,
-        // 优先执行
         enforce: 'pre',
         loader: 'eslint-loader',
         options: {
-          fix: true
-        }
+          fix: true,
+        },
       },
       {
-        // 以下loader只会匹配一个
-        // 注意：不能有两个配置处理同一种类型文件
         oneOf: [
           {
             test: /\.css$/,
-            use: [...commonCssLoader]
+            use: [...commonCssLoader],
           },
           {
             test: /\.less$/,
-            use: [...commonCssLoader, 'less-loader']
+            use: [...commonCssLoader, 'less-loader'],
           },
-          /*
-            正常来讲，一个文件只能被一个loader处理。
-            当一个文件要被多个loader处理，那么一定要指定loader执行的先后顺序：
-              先执行eslint 在执行babel
-          */
           {
             test: /\.js$/,
             exclude: /node_modules/,
@@ -85,15 +74,15 @@ module.exports = {
                     corejs: { version: 3 },
                     targets: {
                       chrome: '60',
-                      firefox: '50'
-                    }
-                  }
-                ]
+                      firefox: '50',
+                    },
+                  },
+                ],
               ],
               // 开启babel缓存
               // 第二次构建时，会读取之前的缓存
-              cacheDirectory: true
-            }
+              cacheDirectory: true,
+            },
           },
           {
             test: /\.(jpg|png|gif)/,
@@ -102,37 +91,38 @@ module.exports = {
               limit: 8 * 1024,
               name: '[hash:10].[ext]',
               outputPath: 'imgs',
-              esModule: false
-            }
+              esModule: false,
+            },
           },
           {
             test: /\.html$/,
-            loader: 'html-loader'
+            loader: 'html-loader',
           },
           {
             exclude: /\.(js|css|less|html|jpg|png|gif)/,
             loader: 'file-loader',
             options: {
-              outputPath: 'media'
-            }
-          }
-        ]
-      }
-    ]
+              outputPath: 'media',
+            },
+          },
+        ],
+      },
+    ],
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'css/built.[contenthash:10].css'
+      // 加入hash值
+      filename: 'css/built.[contenthash:10].css',
     }),
     new OptimizeCssAssetsWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './src/index.html',
       minify: {
         collapseWhitespace: true,
-        removeComments: true
-      }
-    })
+        removeComments: true,
+      },
+    }),
   ],
   mode: 'production',
-  devtool: 'source-map'
-};
+  devtool: 'source-map',
+}

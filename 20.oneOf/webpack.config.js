@@ -2,8 +2,6 @@ const { resolve } = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
-// 定义nodejs环境变量：决定使用browserslist的哪个环境
 process.env.NODE_ENV = 'production';
 
 // 复用loader
@@ -11,7 +9,6 @@ const commonCssLoader = [
   MiniCssExtractPlugin.loader,
   'css-loader',
   {
-    // 还需要在package.json中定义browserslist
     loader: 'postcss-loader',
     options: {
       ident: 'postcss',
@@ -29,10 +26,8 @@ module.exports = {
   module: {
     rules: [
       {
-        // 在package.json中eslintConfig --> airbnb
         test: /\.js$/,
         exclude: /node_modules/,
-        // 优先执行
         enforce: 'pre',
         loader: 'eslint-loader',
         options: {
@@ -51,11 +46,6 @@ module.exports = {
             test: /\.less$/,
             use: [...commonCssLoader, 'less-loader']
           },
-          /*
-            正常来讲，一个文件只能被一个loader处理。
-            当一个文件要被多个loader处理，那么一定要指定loader执行的先后顺序：
-              先执行eslint 在执行babel
-          */
           {
             test: /\.js$/,
             exclude: /node_modules/,

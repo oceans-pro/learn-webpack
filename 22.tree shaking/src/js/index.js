@@ -1,4 +1,4 @@
-import { mul } from './test';
+import { mul } from './utils';
 import '../css/index.css';
 
 function sum(...args) {
