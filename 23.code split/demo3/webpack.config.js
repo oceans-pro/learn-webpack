@@ -17,14 +17,11 @@ module.exports = {
       },
     }),
   ],
-  /*
-    1. 可以将node_modules中代码单独打包一个chunk最终输出
-    2. 自动分析多入口chunk中，有没有公共的文件。如果有会打包成单独一个chunk
-  */
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-    },
-  },
+  // 单入口，但是使用了import，依然需要优化
+  // optimization: {
+  //   splitChunks: {
+  //     chunks: 'all',
+  //   },
+  // },
   mode: 'production',
 }
